@@ -43,4 +43,4 @@ firewall_allowed_ports:
 * License
 MIT.
 
-=[Fear the silence. Fear the switch.]=
+=[Fear the Silence. Fear the Switch.]=
