@@ -54,9 +54,13 @@ sshd_kex_algorithms:
   - ecdh-sha2-nistp256
 #+end_src
 
+* SSHD Hardening
+
+The sshd hardening goes into =/etc/ssh/sshd_config.d/10-harden.conf=.
+
 * Usage
 
-Include in your playbook:
+Include it in your playbook:
 
 #+begin_src yaml
 - hosts: all
@@ -66,9 +70,12 @@ Include in your playbook:
         sshd_port: 2222
         sshd_permit_root_login: no
         sshd_password_authentication: no
+        sshd_allowgroups:
+          - ansible
+          - sudo
 #+end_src
 
 * License
 MIT.
 
-=[Fear the silence. Fear the switch.]=
+=[Fear the Silence. Fear the Switch.]=
