@@ -53,12 +53,14 @@ Inventories must be organized as:
 
 Use Ansible Vault or SOPS for secrets.
 
-Example =hosts.yml=:
+Example =inventories/hosts.yml=:
 #+begin_src yaml
-ghost_infrastructure:
-  ansible_host: 192.168.122.100
-  ansible_user: switch
-  ansible_ssh_private_key_file: /usr/share/keys/ghost_automation
+ghost-infra:
+  hosts:
+    ghost-comms:
+      ansible_host: 192.168.122.100
+      ansible_user: switch
+      ansible_ssh_private_key_file: /usr/share/keys/ghost_automation
 #+end_src
 
 * Development
