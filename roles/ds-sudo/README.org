@@ -3,10 +3,10 @@
 #+OPTIONS: toc:t num:t \n:nil
 
 * Overview
-This role manages =sudo= installation and configuration on Debian-based systems.
-It ensures a minimal, safe =/etc/sudoers= baseline, while delegating all
-privilege management into =/etc/sudoers.d/= files. Validation is enforced with
-=visudo -cf= to prevent lockouts.
+This role manages =sudo= installation and configuration on Debian-based systems.  
+It ensures a minimal, safe =/etc/sudoers= baseline, while delegating all privilege management into =/etc/sudoers.d/= files.  
+
+Validation is enforced with =visudo -cf= to prevent lockouts.  
 
 User and group definitions are collected from =ds-users=:
 - Users may have a =sudo= branch in =user_data=.
@@ -22,7 +22,7 @@ User and group definitions are collected from =ds-users=:
 - Supports =NOPASSWD= for restricted command lists.
 - Ensures all generated files are validated with =visudo -cf=.
 
-* Role Variables
+* Variables
 
 ** =user_data=
 Consumed from =ds-users=. *Only* the =sudo= branch is used here.
@@ -51,7 +51,8 @@ group_data:
 
 * Examples
 
-** Full sudo for a user
+** Restricted sudo for a user
+
 #+begin_src yaml
 user_data:
   admin:
@@ -60,10 +61,14 @@ user_data:
       - wheel
     sudo:
       type: nopasswd
-      commands: all
+      commands:
+        - /usr/bin/systemctl
+        - /usr/sbin/adduser
+        - /usr/sbin/addgroup
 #+end_src
 
 ** Full sudo for a group
+
 #+begin_src yaml
 group_data:
   ansible:
@@ -73,8 +78,11 @@ group_data:
 #+end_src
 
 * Templates
-- =ds-sudo-users.j2=  → generates *per-user* sudo rules.
-- =ds-sudo-groups.j2= → generates *per-group* sudo rules.
+
+| Template            | Function                          |
+|---------------------+-----------------------------------|
+| =ds-sudo-users.j2=  | Generates *per-user* sudo rules.  |
+| =ds-sudo-groups.j2= | Generates *per-group* sudo rules. |
 
 * Safety
 - All files are placed under =/etc/sudoers.d/= with mode =0440=.
