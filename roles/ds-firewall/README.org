@@ -33,6 +33,9 @@ firewall_allowed_ports:
 | =firewall_allowed_ports=    | list   | -       | List of ports and protocols to allow |
 
 * Example
+
+Include it in your playbook:
+
 #+begin_src yaml
 - hosts: servers
   roles:

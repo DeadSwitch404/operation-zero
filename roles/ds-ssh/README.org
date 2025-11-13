@@ -7,14 +7,6 @@
 The base role for deploying and managing OpenSSH.  
 It provides hardened but safe defaults while allowing further overrides.  
 
-* Features
-
-- Installs and enables the OpenSSH server
-- Manages =/etc/ssh/sshd_config= from a template
-- Provides hardened defaults, safe for most environments
-- Centralized variables for customization
-- Designed as a foundation for *ds-ssh-harden*
-
 * Defaults
 
 #+begin_src yaml
@@ -54,25 +46,64 @@ sshd_kex_algorithms:
   - ecdh-sha2-nistp256
 #+end_src
 
+* Features
+
+- Installs and enables the OpenSSH server.
+- Manages =/etc/ssh/sshd_config= from a template.
+- Manages =/etc/ssh/sshd_config.d/10-harden.conf= for hardening.
+- Provides hardened defaults, safe for most environments.
+- Centralized variables for customization.
+- Designed as a foundation for *ds-ssh-harden*.
+
 * SSHD Hardening
 
-The sshd hardening goes into =/etc/ssh/sshd_config.d/10-harden.conf=.
+The sshd hardening configuration goes into =/etc/ssh/sshd_config.d/10-harden.conf=.
 
-* Usage
+* Variables
+
+| Variable                       | Type    | Default             | Comment                                         |
+|--------------------------------+---------+---------------------+-------------------------------------------------|
+| =sshd_package_name=            | string  | =openssh-server=    | Package name.                                   |
+| =sshd_service_name=            | string  | =ssh=               | SSH service name.                               |
+| =sshd_config_owner=            | string  | =root=              | SSH config file owner.                          |
+| =sshd_config_group=            | string  | =root=              | SSH config file group.                          |
+| =sshd_config_mode=             | string  | =0644=              | SSH config file permissions.                    |
+| =sshd_port=                    | integer | =22=                | SSHD listen port.                               |
+| =sshd_protocol=                | integer | =2=                 | SSH protocol version.                           |
+| =sshd_permit_root_login=       | string  | =prohibit-password= | Controls root login method.                     |
+| =sshd_password_authentication= | boolean | =yes=               | Enables or disables password authentication.    |
+| =sshd_x11_forwarding=          | boolean | =no=                | Enables or disables X11 forwarding.             |
+| =sshd_max_auth_tries=          | integer | =3=                 | Maximum authentication attempts per session.    |
+| =sshd_login_grace_time=        | integer | =30=                | Login time limit (seconds).                     |
+| =sshd_challenge_response=      | boolean | =no=                | Enables or disables challenge–response auth.    |
+| =sshd_kbd_interactive_auth=    | boolean | =no=                | Enables or disables keyboard-interactive auth.  |
+| =sshd_client_alive_interval=   | integer | =300=               | Server keepalive interval (seconds).            |
+| =sshd_client_alive_count_max=  | integer | =0=                 | Max missed keepalive replies before disconnect. |
+| =sshd_allow_tcp_forwarding=    | boolean | =no=                | Enables or disables TCP forwarding.             |
+| =sshd_ciphers=                 | list    | See defaults        | Allowed encryption ciphers.                     |
+| =sshd_kex_algorithms=          | list    | See defaults        | Allowed key-exchange algorithms.                |
+| =sshd_allowgroups=             | list    | -                   | Allowed groups for SSH login.                   |
+| =sshd_allowusers=              | list    | -                   | Allowed users for SSH login.                    |
+
+* Example
 
 Include it in your playbook:
 
 #+begin_src yaml
-- hosts: all
+- hosts: servers
   roles:
     - role: ds-ssh
       vars:
         sshd_port: 2222
-        sshd_permit_root_login: no
-        sshd_password_authentication: no
+        sshd_permit_root_login: "no"
+        sshd_password_authentication: "no"
+        sshd_max_auth_tries: 2
+        sshd_client_alive_interval: 120
         sshd_allowgroups:
           - ansible
           - sudo
+        sshd_allowusers:
+          - switch
 #+end_src
 
 * License
