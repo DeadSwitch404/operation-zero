@@ -20,10 +20,10 @@ if [[ -z "$IP" ]]; then
     exit 1
 fi
 
-# === Clone ===
+# === Cloning ===
 
 echo -e "[+] Creating the new virtual machine: ${NAME}..."
-virt-clone \
+virt-clone -q \
   --original "$ORIG" \
   --name "$NAME" \
   --file "${VMDIR}"/"${NAME}".qcow2
@@ -31,7 +31,7 @@ virt-clone \
 echo -e "[+] Setting the image permissions..."
 sudo chown "${OWNER}":"${OWNER}" "${VMDIR}"/"${NAME}".qcow2
 
-# === Set the powered off Debian config ===
+# === Configuration ===
 
 echo -e "[+] Customizing the VM config..."
 virt-customize -q -d "${NAME}" \
@@ -48,4 +48,4 @@ iface enp1s0 inet static
     dns-nameservers $NAMESERVERS
 EOF"
 
-echo -e "[+] The virtual machine is configured..."
+echo -e "[✓] The virtual machine is ready."
