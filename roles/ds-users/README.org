@@ -6,7 +6,9 @@
 This role manages user and group creation, as well as public SSH key deployment, on
 Debian-based systems. It ensures that users exist, that their groups are
 created and assigned correctly, and that their SSH keys are installed.
-The role can set up the initial password.
+
+Optionally sets the initial user password during creation.
+
 Privilege configuration is delegated to the =ds-sudo= role.
 
 * Features
@@ -19,17 +21,16 @@ Privilege configuration is delegated to the =ds-sudo= role.
 - Sets the user's full name (GECOS field) if provided.
 - Fully compatible with =ds-sudo= for privilege management.
 
-* Role Variables
-
+* Variables
 ** =user_data=
 Dictionary of users and their attributes:
 
 #+begin_src yaml
 user_data:
   user1:
-    ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCjvz101..."
-    full_name: "DeadSwitch"
-    password: "*"
+    ssh_key: "ssh-rsa ..."
+    full_name: "User 1"
+    password: "*"       # Default disabled password
     groups:
       - ansible
     sudo:               # Ignored by ds-users; consumed by ds-sudo
@@ -37,15 +38,17 @@ user_data:
       commands: all
 #+end_src
 
-- =ssh_key=   → optional; if defined, will be deployed to =~/.ssh/authorized_keys=.
-- =full_name= → optional; sets the user's GECOS/comment field.
-- =prompt=    → optional; sets the BASH prompt of the user (=.bashrc=).
-- =password=  → optional; sets the password only at user creation; defaults to ="*"=.
-- =groups=    → optional; list of groups to add the user to.
-- =sudo=      → ignored by =ds-users=; passed through for use by =ds-sudo=.
+| Variable    | Type   | Default | Comment                                       |
+|-------------+--------+---------+-----------------------------------------------|
+| =ssh_key=   | string | -       | SSH public key deployed to =authorized_keys=. |
+| =full_name= | string | -       | User's GECOS/comment field.                   |
+| =prompt=    | string | -       | Sets the BASH prompt in =.bashrc=.            |
+| =password=  | string | =*=     | Sets password *only at user creation*.        |
+| =groups=    | list   | -       | List of groups to add the user to.            |
+| =sudo=      | dict   | -       | Ignored, used by =ds-sudo=.                   |
 
-For real password hashes, store them in an Ansible Vault in the =vault_data= hash.
-(Hash the passwords with ~openssl passwd -6~)
+For *real password hashes*, store them in an Ansible Vault or SOPS in the =vault_data= hash.
+(Hash the passwords with =openssl passwd -6=.)
 
 ** =group_data=
 Dictionary of groups. Groups may also be defined here, typically with sudo
@@ -85,7 +88,7 @@ add them to that group.
 #+begin_src yaml
 user_data:
   deadswitch:
-    ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCjvz101..."
+    ssh_key: "ssh-rsa ..."
     full_name: "DeadSwitch"
     password: "*"
     groups:
@@ -107,8 +110,11 @@ vault_data:
 - Existing users and group memberships are preserved; =append: yes= is used.
 - Groups are auto-created if referenced in either =user_data= or =group_data=.
 - SSH keys are only deployed if defined.
-- Password is set only at user creation. Default: "*" (account locked, SSH-only authentication)
+- Password is set only at user creation. Default: "*" (account locked, SSH-key-only authentication)
 - Sudo privileges are not modified by this role; use =ds-sudo=.
+
+* Integration
+This role is designed to integrate with =ds-sudo= and =ds-ssh=, forming the base layer of DeadSwitch system provisioning.
 
 * License
 MIT.
