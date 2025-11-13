@@ -21,13 +21,16 @@ firewall_allowed_ports:
 * Tasks
 1. Install and enable UFW.
 2. Set default incoming/outgoing policies.
-3. Allow configured ports from ~firewall_allowed_ports~.
+3. Allow configured ports from =firewall_allowed_ports=.
 4. Enable and start the UFW service.
 
 * Variables
-- =firewall_default_incoming= :: default = =deny=
-- =firewall_default_outgoing= :: default = =allow=
-- =firewall_allowed_ports= :: list of ports and protocols to allow
+
+| Variable                  | Type   | Default | Comment                              |
+|---------------------------+--------+---------+--------------------------------------|
+| firewall_default_incoming | string | deny    | Default incoming rule.               |
+| firewall_default_outgoing | string | allow   | Default outgoing rule.               |
+| firewall_allowed_ports    | list   | -       | List of ports and protocols to allow |
 
 * Example
 #+begin_src yaml
@@ -38,6 +41,7 @@ firewall_allowed_ports:
         firewall_allowed_ports:
           - { port: "{{ sshd_port | default('22') }}", proto: tcp }
           - { port: "53", proto: udp }
+          - { port: "443", proto: tcp }
 #+end_src
 
 * License
