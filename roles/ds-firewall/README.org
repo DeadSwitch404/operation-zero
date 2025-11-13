@@ -26,11 +26,11 @@ firewall_allowed_ports:
 
 * Variables
 
-| Variable                  | Type   | Default | Comment                              |
-|---------------------------+--------+---------+--------------------------------------|
-| firewall_default_incoming | string | deny    | Default incoming rule.               |
-| firewall_default_outgoing | string | allow   | Default outgoing rule.               |
-| firewall_allowed_ports    | list   | -       | List of ports and protocols to allow |
+| Variable                    | Type   | Default | Comment                              |
+|-----------------------------+--------+---------+--------------------------------------|
+| =firewall_default_incoming= | string | =deny=  | Default incoming rule.               |
+| =firewall_default_outgoing= | string | =allow= | Default outgoing rule.               |
+| =firewall_allowed_ports=    | list   | -       | List of ports and protocols to allow |
 
 * Example
 #+begin_src yaml
