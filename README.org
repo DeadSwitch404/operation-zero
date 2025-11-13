@@ -31,7 +31,7 @@ ansible.cfg      → Ansible configuration
 Each role ships with its own =README.org= describing variables, structure, and usage.
 
 * Playbooks
-- =play-configure-machine.yml= :: Base playbook to provision a host with all DeadSwitch roles.
+- =play-operation-zero.yml= :: Base playbook to provision a host with all DeadSwitch roles.
 
 Example usage:
 #+begin_src shell
