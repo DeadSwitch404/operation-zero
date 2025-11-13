@@ -1,5 +1,5 @@
 ---
-- name: Ghost Automation
+- name: Operation Zero
   hosts: all
   become: yes
 

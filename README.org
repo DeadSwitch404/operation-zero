@@ -1,17 +1,18 @@
-#+TITLE: Ghost Automation
+#+TITLE: Operation Zero - The silence before automation
 #+AUTHOR: DeadSwitch | The Silent Architect
 #+OPTIONS: toc:t num:t \n:nil
 
 * Overview
-Ghost Automation is the DeadSwitch infrastructure automation framework.
+Operation Zero is the silence before automation.
+
 It's a self-contained Ghost Automation project.
+
 It provides hardened, reproducible machine configurations using Ansible.
 Every role is designed for security, minimalism, and validation.
 
-The goal: any bare machine can be turned into the part of the
-Ghost Infrastructure with one playbook.
+The goal: any bare machine can be turned into the part of the Ghost Infrastructure with one playbook.
 
-* Structure
+* Project Structure
 #+begin_example
 playbooks/       → Entry point playbooks
 roles/           → Modular roles (ds-*)
