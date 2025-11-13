@@ -25,7 +25,7 @@ ansible.cfg      → Ansible configuration
 | =ds-users=    | Create users, groups, and deploy SSH keys. Set the initial password. |
 | =ds-sudo=     | Manage sudoers safely with validation.                               |
 | =ds-ssh=      | Configure SSH access for users.                                      |
-| =ds-firewall= | Manage firewall rules (default deny, explicit allow).                |
+| =ds-firewall= | Manage firewall rules (default deny input, explicit allow).          |
 
 Each role ships with its own =README.org= describing variables, structure, and usage.
 
@@ -34,7 +34,7 @@ Each role ships with its own =README.org= describing variables, structure, and u
 
 Example usage:
 #+begin_src shell
-ansible-playbook -i inventories/hosts.yml playbooks/play-configure-machine.yml --ask-vault-pass
+ansible-playbook -i inventories/hosts.yml playbooks/play-configure-machine.yml
 #+end_src
 
 This playbook runs the baseline:
@@ -50,6 +50,8 @@ Inventories must be organized as:
 - =hosts.yml=    → main inventory of target machines
 - =group_vars/=  → group-level variables
 - =host_vars/=   → host-specific variables
+
+Use Ansible Vault or SOPS for secrets.
 
 Example =hosts.yml=:
 #+begin_src yaml
@@ -74,4 +76,4 @@ ghost_infrastructure:
 * License
 MIT.
 
-=[Fear the silence. Fear the switch.]=
+=[Fear the Silence. Fear the Switch.]=
