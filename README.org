@@ -21,12 +21,14 @@ ansible.cfg      → Ansible configuration
 #+end_example
 
 * Roles
-| Role          | Purpose                                                              |
-|---------------+----------------------------------------------------------------------|
-| =ds-users=    | Create users, groups, and deploy SSH keys. Set the initial password. |
-| =ds-sudo=     | Manage sudoers safely with validation.                               |
-| =ds-ssh=      | Configure SSH access for users.                                      |
-| =ds-firewall= | Manage firewall rules (default deny input, explicit allow).          |
+| Role              | Purpose                                                              |
+|-------------------+----------------------------------------------------------------------|
+| =ds-basepackages= | Install basic, initial packeges.                                     |
+| =ds-users=        | Create users, groups, and deploy SSH keys. Set the initial password. |
+| =ds-sudo=         | Manage sudoers safely with validation.                               |
+| =ds-ssh=          | Configure SSH access for users.                                      |
+| =ds-firewall=     | Manage firewall rules (default deny input, explicit allow).          |
+#+TBLFM: $1=ds-basepackages
 
 Each role ships with its own =README.org= describing variables, structure, and usage.
 
@@ -40,6 +42,7 @@ ansible-playbook -i inventories/hosts.yml playbooks/play-configure-machine.yml
 
 This playbook runs the baseline:
 #+begin_example
+- ds-basepackages
 - ds-users
 - ds-sudo
 - ds-ssh

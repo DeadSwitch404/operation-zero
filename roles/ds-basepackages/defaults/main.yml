@@ -5,3 +5,4 @@ basepackages_install:
   - vim
   - tmux
   - htop
+  - emacs-nox
