@@ -1,0 +1,40 @@
+#+TITLE: DeadSwitch Base Packages
+#+AUTHOR: DeadSwitch | The Silent Architect
+#+OPTIONS: toc:t num:t \n:nil
+
+* Overview
+This role installs packages defined in the =basepackages_install= variable.
+
+* Features
+- Installs the list of =basepackages_install= packages if missing.
+- Idempotency.
+
+* Defaults
+
+#+begin_src yaml
+basepackages_install:
+  - mc
+  - curl
+  - vim
+  - tmux
+  - htop
+  - emacs-nox
+#+end_src
+
+* Variables
+
+=basepackages_install= :: List of packages to install.
+
+* Examples
+
+#+begin_src yaml
+basepackages_install:
+  - tor
+  - mc
+  - btop
+#+end_src
+
+* License
+MIT.
+
+=[Fear the Silence. Fear the Switch.]=

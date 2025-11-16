@@ -61,29 +61,30 @@ The sshd hardening configuration goes into =/etc/ssh/sshd_config.d/10-harden.con
 
 * Variables
 
-| Variable                       | Type    | Default             | Comment                                         |
-|--------------------------------+---------+---------------------+-------------------------------------------------|
-| =sshd_package_name=            | string  | =openssh-server=    | Package name.                                   |
-| =sshd_service_name=            | string  | =ssh=               | SSH service name.                               |
-| =sshd_config_owner=            | string  | =root=              | SSH config file owner.                          |
-| =sshd_config_group=            | string  | =root=              | SSH config file group.                          |
-| =sshd_config_mode=             | string  | =0644=              | SSH config file permissions.                    |
-| =sshd_port=                    | integer | =22=                | SSHD listen port.                               |
-| =sshd_protocol=                | integer | =2=                 | SSH protocol version.                           |
-| =sshd_permit_root_login=       | string  | =prohibit-password= | Controls root login method.                     |
-| =sshd_password_authentication= | boolean | =yes=               | Enables or disables password authentication.    |
-| =sshd_x11_forwarding=          | boolean | =no=                | Enables or disables X11 forwarding.             |
-| =sshd_max_auth_tries=          | integer | =3=                 | Maximum authentication attempts per session.    |
-| =sshd_login_grace_time=        | integer | =30=                | Login time limit (seconds).                     |
-| =sshd_challenge_response=      | boolean | =no=                | Enables or disables challenge–response auth.    |
-| =sshd_kbd_interactive_auth=    | boolean | =no=                | Enables or disables keyboard-interactive auth.  |
-| =sshd_client_alive_interval=   | integer | =300=               | Server keepalive interval (seconds).            |
-| =sshd_client_alive_count_max=  | integer | =0=                 | Max missed keepalive replies before disconnect. |
-| =sshd_allow_tcp_forwarding=    | boolean | =no=                | Enables or disables TCP forwarding.             |
-| =sshd_ciphers=                 | list    | See defaults        | Allowed encryption ciphers.                     |
-| =sshd_kex_algorithms=          | list    | See defaults        | Allowed key-exchange algorithms.                |
-| =sshd_allowgroups=             | list    | -                   | Allowed groups for SSH login.                   |
-| =sshd_allowusers=              | list    | -                   | Allowed users for SSH login.                    |
+| Variable                       | Type    | Default             | Comment                                          |
+|--------------------------------+---------+---------------------+--------------------------------------------------|
+| =sshd_package_name=            | string  | =openssh-server=    | Package name.                                    |
+| =sshd_service_name=            | string  | =ssh=               | SSH service name.                                |
+| =sshd_config_owner=            | string  | =root=              | SSH config file owner.                           |
+| =sshd_config_group=            | string  | =root=              | SSH config file group.                           |
+| =sshd_config_mode=             | string  | =0644=              | SSH config file permissions.                     |
+| =sshd_port=                    | integer | =22=                | SSHD listen port.                                |
+| =sshd_harden=                  | boolean | =yes=               | Enables to deploy a hardened SSHD configuration. |
+| =sshd_protocol=                | integer | =2=                 | SSH protocol version.                            |
+| =sshd_permit_root_login=       | string  | =prohibit-password= | Controls root login method.                      |
+| =sshd_password_authentication= | boolean | =yes=               | Enables or disables password authentication.     |
+| =sshd_x11_forwarding=          | boolean | =no=                | Enables or disables X11 forwarding.              |
+| =sshd_max_auth_tries=          | integer | =3=                 | Maximum authentication attempts per session.     |
+| =sshd_login_grace_time=        | integer | =30=                | Login time limit (seconds).                      |
+| =sshd_challenge_response=      | boolean | =no=                | Enables or disables challenge–response auth.     |
+| =sshd_kbd_interactive_auth=    | boolean | =no=                | Enables or disables keyboard-interactive auth.   |
+| =sshd_client_alive_interval=   | integer | =300=               | Server keepalive interval (seconds).             |
+| =sshd_client_alive_count_max=  | integer | =0=                 | Max missed keepalive replies before disconnect.  |
+| =sshd_allow_tcp_forwarding=    | boolean | =no=                | Enables or disables TCP forwarding.              |
+| =sshd_ciphers=                 | list    | See defaults        | Allowed encryption ciphers.                      |
+| =sshd_kex_algorithms=          | list    | See defaults        | Allowed key-exchange algorithms.                 |
+| =sshd_allowgroups=             | list    | -                   | Allowed groups for SSH login.                    |
+| =sshd_allowusers=              | list    | -                   | Allowed users for SSH login.                     |
 
 * Example
 

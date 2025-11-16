@@ -22,7 +22,7 @@
     group: "{{ sshd_config_group }}"
     mode: "{{ sshd_config_mode }}"
     validate: 'sshd -t -f %s'
-  when: sshd_harden
+  when: sshd_harden | bool
   notify: Restart_ssh_service
 
 - name: Enable and start the OpenSSH server

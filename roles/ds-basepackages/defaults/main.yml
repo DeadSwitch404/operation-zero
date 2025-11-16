@@ -1,0 +1,7 @@
+---
+basepackages_install:
+  - mc
+  - curl
+  - vim
+  - tmux
+  - htop
