@@ -23,7 +23,7 @@ ansible.cfg      → Ansible configuration
 * Roles
 | Role              | Purpose                                                              |
 |-------------------+----------------------------------------------------------------------|
-| =ds-basepackages= | Install basic, initial packeges.                                     |
+| =ds-basepackages= | Install basic, initial packages.                                     |
 | =ds-users=        | Create users, groups, and deploy SSH keys. Set the initial password. |
 | =ds-sudo=         | Manage sudoers safely with validation.                               |
 | =ds-ssh=          | Configure SSH access for users.                                      |
